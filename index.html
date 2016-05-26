@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Shooping List</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div ><h3>Angular js Shooping list Examples</h1></div>
+        <div class="row col-xs-4" ng-app="myApp" ng-controller="myCtrl">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="x in products">
+                    <span style="cursor: pointer;">{{x}}</span>
+                    <button style="float:right;" ng-click="removeItem($index)" class="btn-danger">Delete(x)</button>
+                </li>
+                <p>{{errorText}}</p>
+            </ul>
+            <input ng-model="addMe" style="width:84%">
+            <button class="btn btn-primary" ng-click="addItem()">Add</button>
+        </div></div>
+
+        <script>
+            var app = angular.module('myApp', []);
+            app.controller('myCtrl', function($scope) {
+                $scope.products = ['Milk', 'Breads', 'Butter'];
+                $scope.addItem = function() {
+                    $scope.errorText = '';
+                    if (!$scope.addMe){
+                        $scope.errorText = 'Please add some items in your shooping list';
+                    }else if ($scope.products.indexOf($scope.addMe) == -1) {
+                        $scope.products.push($scope.addMe);
+                        $scope.addMe ='';
+                    } else {
+                        $scope.errorText = 'This item is already in your shooping list';
+                    }
+                }
+                $scope.removeItem = function(x) {
+                    $scope.errorText = '';
+                    $scope.products.splice(x, 1);
+                }
+            });
+        </script>
+    </body>
+</html>
